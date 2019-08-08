@@ -17,5 +17,4 @@ create-react-app --scripts-version cobi-react-scripts
 Specify the following options in your package.json:
 
 - **reactSrcDir** folder in which your react sources are located, relative to the project's base folder
-  _Note:_ This option will interfer with the usage of react-dev-utils, which will still search in 'src'
 - **reactBuildDir** folder in which your react build files will be stored, relative to the project's base folder
