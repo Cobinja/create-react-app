@@ -19,13 +19,14 @@ module.exports = (resolve, rootDir, isEjecting) => {
   const setupTestsFileExtension =
     (setupTestsMatches && setupTestsMatches[1]) || 'js';
   const setupTestsFile = fs.existsSync(paths.testsSetup)
-    ? `<rootDir>/src/setupTests.${setupTestsFileExtension}`
+    ? `<rootDir>/${paths.appSrc}/setupTests.${setupTestsFileExtension}`
     : undefined;
 
   const config = {
-    roots: ['<rootDir>/src'],
-
-    collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+    collectCoverageFrom: [
+      paths.appSrc + '/**/*.{js,jsx,ts,tsx}',
+      '!' + paths.appSrc + '/**/*.d.ts',
+    ],
 
     setupFiles: [
       isEjecting
@@ -35,8 +36,8 @@ module.exports = (resolve, rootDir, isEjecting) => {
 
     setupFilesAfterEnv: setupTestsFile ? [setupTestsFile] : [],
     testMatch: [
-      '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
-      '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}',
+      `<rootDir>/${paths.appSrc}/**/__tests__/**/*.{js,jsx,ts,tsx}`,
+      `<rootDir>/${paths.appSrc}/**/*.{spec,test}.{js,jsx,ts,tsx}`,
     ],
     testEnvironment: 'jest-environment-jsdom-fourteen',
     transform: {
@@ -115,7 +116,7 @@ module.exports = (resolve, rootDir, isEjecting) => {
               chalk.bold('setupFilesAfterEnv') +
               ' in your package.json.\n\n' +
               'Remove it from Jest configuration, and put the initialization code in ' +
-              chalk.bold('src/setupTests.js') +
+              chalk.bold(paths.appSrc + '/setupTests.js') +
               '.\nThis file will be loaded automatically.\n'
           )
         );
